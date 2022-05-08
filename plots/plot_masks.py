@@ -7,18 +7,17 @@ import torch
 from typing import List
 
 
-def plot_masks_comparison(image: np.ndarray, real_mask: np.ndarray,
-                          predicted_mask: np.ndarray, border: float = classification_border):
+def plot_masks_comparison(image, real_mask, predicted_mask, border=classification_border):
     """Visualizes real and predicted mask
     Parameters
     ----------
-    image
+    image : np.ndarray, 3d
         Original image for segmentation.
-    real_mask
+    real_mask : np.ndarray, 2d
         Real segmentation mask.
-    predicted_mask:
+    predicted_mask: np.ndarray, 2d
         Predicted segmentation mask.
-    border:
+    border: float
         Segmentation mask binarization border.
     """
     plt.figure(figsize=(18, 8))
@@ -39,23 +38,23 @@ def plot_masks_comparison(image: np.ndarray, real_mask: np.ndarray,
     plt.show()
 
 
-def plot_masks_comparisons(model: torch.nn.Module, test_transform, images_paths: List[str],
-                           masks_paths: List[str], border: float = classification_border, device: str = 'cuda'):
+def plot_masks_comparisons(model, test_transform, images_paths,
+                           masks_paths, border=classification_border, device='cuda'):
     """Predicts masks for given image paths,
     draws original images, real and predicted masks.
     Parameters
     ----------
-    model
+    model : torch.nn.Module
         Segmentation model.
     test_transform
         Transform applied to images before passing into model.
-    images_paths:
+    images_paths:  List[str]
         Image paths for segmentation.
-    masks_paths:
+    masks_paths : List[str]
         Real segmentation masks.
-    border:
+    border : float
         Segmentation mask binarization border.
-    device:
+    device : str
         Device for computing (cuda or cpu).
     """
     for image_path, mask_path in zip(images_paths, masks_paths):

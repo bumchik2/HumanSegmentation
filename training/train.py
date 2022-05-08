@@ -13,29 +13,27 @@ from plots.plot_masks import plot_masks_comparisons
 from typing import List, Dict
 
 
-def print_metrics(history: Dict[str, Dict[str, List[float]]]):
+def print_metrics(history):
     """Prints loss and dice on train and validation samples into standard output.
     Parameters
     ----------
-    history
+    history : Dict[str, Dict[str, List[float]]]
         Object with training progress information.
         history['loss' or 'dice']['train' or 'val'] should return list of float.
     """
-
     for metric in ('loss', 'dice'):
         for sample_name in ('train', 'val'):
             print(f'{sample_name} {metric}: {history[metric][sample_name][-1]}')
 
 
-def wandb_log_metrics(history: Dict[str, Dict[str, List[float]]]):
+def wandb_log_metrics(history):
     """Logs metrics to wandb. Generates plots for loss and dice on train and validation samples.
     Parameters
     ----------
-    history
+    history : Dict[str, Dict[str, List[float]]]
         Object with training progress information.
         history['loss' or 'dice']['train' or 'val'] should return list of float.
     """
-
     import wandb
 
     epochs_passed = len(history['loss']['train'])
@@ -54,11 +52,11 @@ def wandb_log_metrics(history: Dict[str, Dict[str, List[float]]]):
         )})
 
 
-def plot_learning_curves(history: Dict[str, Dict[str, List[float]]]):
+def plot_learning_curves(history):
     """Draws model training graphs.
     Parameters
     ----------
-    history
+    history : Dict[str, Dict[str, List[float]]]
         Object with training progress information.
         history['loss' or 'dice']['train' or 'val'] should return list of float.
     """
@@ -83,22 +81,22 @@ def plot_learning_curves(history: Dict[str, Dict[str, List[float]]]):
     plt.show()
 
 
-def train_one_epoch(model: torch.nn.Module, criterion, optimizer, train_batch_gen: torch.utils.data.DataLoader,
-                    border: float = classification_border, device='cuda') -> dict:
+def train_one_epoch(model, criterion, optimizer, train_batch_gen,
+                    border=classification_border, device='cuda') -> dict:
     """Performs one epoch of training segmentation model.
     Parameters
     ----------
-    model
+    model : torch.nn.Module
         Segmentation model to train.
     criterion
         Pytorch criterion for computing loss.
     optimizer
         One of torch.optim optimizers: https://pytorch.org/docs/stable/optim.html .
-    train_batch_gen
+    train_batch_gen : torch.utils.data.DataLoader
         Data loader for training.
-    border
+    border : float
         Segmentation mask binarization border.
-    device
+    device : str
         Device for computing (cuda or cpu).
     Returns
     -------
@@ -173,7 +171,6 @@ def train_model(model, criterion, optimizer, train_batch_gen, val_batch_gen, num
         Object with training progress information.
         history['loss' or 'dice']['train' or 'val'] will is list of float.
     """
-
     if use_wandb:
         import wandb
 

@@ -6,22 +6,21 @@ import numpy as np
 
 
 @torch.no_grad()
-def get_mask_prediction(model: torch.nn.Module, image: torch.tensor or np.ndarray,
-                        transform, device: str = 'cuda') -> np.ndarray:
-    """Predicts a segmentation mask for a specific image
+def get_mask_prediction(model, image, transform, device='cuda') -> np.ndarray:
+    """Predicts a segmentation mask for a specific image.
     Parameters
     ----------
-    model
+    model : torch.nn.Module
         Segmentation model.
-    image
+    image : torch.tensor or np.ndarray, 3d
         Original image for segmentation.
     transform
         Transform applied to image before passing to model.
-    device:
+    device : str
         Device for computing (cuda or cpu).
     Returns
     -------
-    np.ndarray
+    np.ndarray, 2d
         Height x width mask with float values.
     """
     model.train(False)
@@ -35,24 +34,24 @@ def get_mask_prediction(model: torch.nn.Module, image: torch.tensor or np.ndarra
 
 
 @torch.no_grad()
-def get_metrics(model: torch.nn.Module, criterion, val_batch_gen: torch.utils.data.DataLoader,
-                border: float = classification_border, device: str = 'cuda') -> dict:
-    """Predicts a segmentation mask for a specific image
+def get_metrics(model, criterion, val_batch_gen,
+                border=classification_border, device='cuda') -> dict:
+    """Calculates metrics (loss and dice) of the model.
     Parameters
     ----------
-    model
+    model : torch.nn.Module
         Segmentation model.
     criterion
         Pytorch criterion for computing loss.
-    val_batch_gen
+    val_batch_gen : torch.utils.data.DataLoader
         Data loader for metrics evaluation.
-    border:
+    border : float
         Segmentation mask binarization border.
-    device:
+    device : str
         Device for computing (cuda or cpu).
     Returns
     -------
-    dict
+    Dict
         {'loss': average_loss, 'dice': average_dice}
     """
     model.train(False)

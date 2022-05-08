@@ -6,9 +6,8 @@ from plots.plot_masks import read_image, read_mask
 class SegmentationDataset(Dataset):
     """Segmentation dataset.
     """
-
-    def __init__(self, data_path: str, mask_path: str, transform, mode: str, max_size: int or None = None):
-        """Visualizes real and predicted mask
+    def __init__(self, data_path, mask_path, transform, mode, max_size=None):
+        """Segmentation dataset.
         Parameters
         ----------
         data_path : str
@@ -21,7 +20,7 @@ class SegmentationDataset(Dataset):
             'train', 'val' or 'test'. If set to 'train' or 'val', contains images and masks.
             If set to 'test', will only contain images.
         max_size : int
-            int, optional (default=None)
+            int or None, optional (default=None)
         """
         assert (mode in ('train', 'val', 'test'))
         if mode == 'test':

@@ -8,13 +8,13 @@ import torch.nn.functional as F
 
 
 class UNetDown(nn.Module):
-    """Downscaling UNet block"""
-
+    """Downsampling UNet block
+    """
     def __init__(self, conv_block_class, in_channels, out_channels):
         super().__init__()
 
         self.down_block = nn.Sequential(
-            nn.MaxPool2d(2),
+            nn.MaxPool2d(kernel_size=2),
             conv_block_class(in_channels, out_channels)
         )
 
@@ -23,8 +23,8 @@ class UNetDown(nn.Module):
 
 
 class UNetUp(nn.Module):
-    """Upscaling UNet block"""
-
+    """Upsampling UNet block
+    """
     def __init__(self, conv_block_class, in_channels, out_channels):
         super().__init__()
 
@@ -45,13 +45,25 @@ class UNetUp(nn.Module):
 
 class UNet(nn.Module):
     def __init__(self, conv_block_class, in_channels, out_channels):
+        """Common class for UNet architectures
+        Parameters
+        ----------
+        conv_block_class : torch.nn.Module
+            The class used for convolutions that do not change the size of the image.
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the model.
+        """
         super().__init__()
 
         self.inc = conv_block_class(in_channels, 64)
+
         self.down1 = UNetDown(conv_block_class, 64, 128)
         self.down2 = UNetDown(conv_block_class, 128, 256)
         self.down3 = UNetDown(conv_block_class, 256, 512)
         self.down4 = UNetDown(conv_block_class, 512, 1024)
+
         self.up1 = UNetUp(conv_block_class, 1024, 512)
         self.up2 = UNetUp(conv_block_class, 512, 256)
         self.up3 = UNetUp(conv_block_class, 256, 128)
@@ -61,13 +73,16 @@ class UNet(nn.Module):
 
     def forward(self, x):
         x1 = self.inc(x)
+
         x2 = self.down1(x1)
         x3 = self.down2(x2)
         x4 = self.down3(x3)
         x5 = self.down4(x4)
+
         x = self.up1(x5, x4)
         x = self.up2(x, x3)
         x = self.up3(x, x2)
         x = self.up4(x, x1)
+
         x = self.last_conv(x)
         return x

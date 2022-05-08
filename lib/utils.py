@@ -36,7 +36,6 @@ def decode_rle(rle_mask, shape=(320, 240)):
     -------
     np.ndarray, 2d
         Mask that contains only 2 unique values: 0 - denotes background, 1 - denotes object.
-
     """
     s = rle_mask.split()
     starts, lengths = [np.asarray(x, dtype=int) for x in (s[0:][::2], s[1:][::2])]

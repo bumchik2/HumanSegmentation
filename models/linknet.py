@@ -10,7 +10,19 @@ from torch import nn
 
 
 class LinkNetEncoderBlock(nn.Module):
+    """LinkNet encoder block. Consists of 3 convolutions with 1 residual connection.
+    Does x2 downsampling over the incoming image.
+    """
     def __init__(self, m, n):
+        """LinkNet encoder block. Consists of 3 convolutions with 1 residual connection.
+        Does x2 downsampling over the incoming image.
+        Parameters
+        ----------
+        m : int
+            Number of channels in the input image.
+        n : int
+            Number of channels produced by the encoder block.
+        """
         super().__init__()
 
         # residual block
@@ -23,7 +35,7 @@ class LinkNetEncoderBlock(nn.Module):
             nn.ReLU()
         )
 
-        # x2 downscaling block
+        # x2 downsampling block
         self.block2 = nn.Sequential(
             nn.Conv2d(m, n, kernel_size=3, padding=1, stride=2),
             nn.BatchNorm2d(n),
@@ -36,10 +48,22 @@ class LinkNetEncoderBlock(nn.Module):
 
 
 class LinkNetDecoderBlock(nn.Module):
+    """LinkNet decoder block. Convolution + deconvolution + convolution with batchnorm + relu in between.
+    Does x2 upsampling over the incoming image.
+    """
     def __init__(self, m, n):
+        """LinkNet decoder block. Convolution + deconvolution + convolution with batchnorm + relu in between.
+        Does x2 upsampling over the incoming image.
+        Parameters
+        ----------
+        m : int
+            Number of channels in the input image.
+        n : int
+            Number of channels produced by the encoder block.
+        """
         super().__init__()
 
-        # x2 upscaling block
+        # x2 upsampling block
         self.block = nn.Sequential(
             nn.Conv2d(m, m // 4, kernel_size=1),
             nn.BatchNorm2d(m // 4),
@@ -59,7 +83,17 @@ class LinkNetDecoderBlock(nn.Module):
 
 
 class LinkNet(nn.Module):
+    """LinkNet with 4 encoder blocks and 4 decoder blocks.
+    """
     def __init__(self, in_channels, out_channels):
+        """LinkNet with 4 encoder blocks and 4 decoder blocks.
+        Parameters
+        ----------
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the model.
+        """
         super().__init__()
 
         self.start = nn.Sequential(

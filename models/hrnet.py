@@ -10,7 +10,26 @@ from models.common import ConvSequence, Conv3x3, ConvDownSample, ConvUpSample
 
 
 class HRFusion(nn.Module):
+    """Fusion block used in HRNet.
+    """
     def __init__(self, in_channels, out_channels_each, in_downsampling_factors, out_downsampling_factors):
+        """Fusion block used in HRNet.
+        Parameters
+        ----------
+        in_channels : int
+            Number of channels in the input image.
+        out_channels_each : int
+            Number of channels obtained from each convolution sequence.
+        in_downsampling_factors : List[int]
+            Relative size values of incoming images.
+            For example, in_downsampling_factors = (1, 2, 4) means that
+            the first input of HRFusion is of size h x w, second - h//2 x w//2 and third h//4 x w//4
+        out_downsampling_factors : List[int]
+            Relative size values of images produced by HRFusion.
+            For example, out_downsampling_factors = (1, 2, 4) means that
+            the first output of HRFusion is of size h x w, second - h//2 x w//2 and third h//4 x w//4,
+            where h x w is the size of the first HRFusion input.
+        """
         super().__init__()
 
         convs = []
@@ -54,7 +73,17 @@ class HRFusion(nn.Module):
 
 
 class HRNet(nn.Module):
+    """HRNet with 5 fusion blocks.
+    """
     def __init__(self, in_channels, out_channels):
+        """HRNet with 5 fusion blocks.
+        Parameters
+        ----------
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the model.
+        """
         super().__init__()
 
         self.start = nn.Sequential(
@@ -88,25 +117,26 @@ class HRNet(nn.Module):
         )
 
     def forward(self, x):
-        x = self.start(x)
+        # x has to be of shape batch_size x in_channels x h x w
+        x = self.start(x)  # batch_size x 32 x h x w
 
-        x, y = self.fusion1((x,))
+        x, y = self.fusion1((x,))  # batch_size x 32 x ... x ... each
 
-        x = self.conv2(x)
-        y = self.conv3(y)
-        x, y, z = self.fusion2((x, y,))
+        x = self.conv2(x)  # batch_size x 64 x h x w
+        y = self.conv3(y)  # batch_size x 64 x h//2 x w//2
+        x, y, z = self.fusion2((x, y,))   # batch_size x 128 x ... x ... each
 
-        x = self.conv4(x)
-        y = self.conv5(y)
-        z = self.conv6(z)
-        x, y, z, w = self.fusion3((x, y, z,))
+        x = self.conv4(x)  # batch_size x 128 x h x w
+        y = self.conv5(y)  # batch_size x 128 x h//2 x w//2
+        z = self.conv6(z)  # batch_size x 128 x h//4 x w//4
+        x, y, z, w = self.fusion3((x, y, z,))  # batch_size x 96 x ... x ... each
 
-        x = self.conv7(x)
-        y = self.conv8(y)
-        z = self.conv9(z)
-        w = self.conv10(w)
-        x, y, z, w = self.fusion4((x, y, z, w,))
+        x = self.conv7(x)  # batch_size x 64 x h x w
+        y = self.conv8(y)  # batch_size x 64 x h//2 x w//2
+        z = self.conv9(z)  # batch_size x 64 x h//4 x w//4
+        w = self.conv10(w)  # batch_size x 64 x h//8 x w//8
+        x, y, z, w = self.fusion4((x, y, z, w,))  # batch_size x 64 x ... x ... each
 
-        x = self.fusion5((x, y, z, w))[0]
-        x = self.finish(x)
+        x = self.fusion5((x, y, z, w))[0]  # batch_size x 64 x h x w
+        x = self.finish(x)  # batch_size x out_channels x h x w
         return x

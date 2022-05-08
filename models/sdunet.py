@@ -12,7 +12,15 @@ from models.unet import UNet
 
 
 class DilatedConv(nn.Module):
+    """Convolution with kernel 3x3 and dilation 2 + batchnorm + relu
+    """
     def __init__(self, in_channels, out_channels):
+        """Convolution with kernel 3x3 and dilation 2 + batchnorm + relu
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the convolution.
+        """
         super().__init__()
 
         self.dilated_conv = nn.Sequential(
@@ -26,7 +34,19 @@ class DilatedConv(nn.Module):
 
 
 class DilatedConvBlock(nn.Module):
+    """SDUNet convolutional block.
+    Stacks multiple dilated convolutions.
+    """
     def __init__(self, in_channels, out_channels):
+        """SDUNet convolutional block.
+        Stacks multiple dilated convolutions.
+        Parameters
+        ----------
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the block.
+        """
         assert (out_channels % 16 == 0)
 
         super().__init__()
@@ -51,7 +71,19 @@ class DilatedConvBlock(nn.Module):
 
 
 class SDUNet(nn.Module):
+    """SDUNet model.
+    Uses stacked dilated convolutions instead of vanilla double convolutional blocks.
+    """
     def __init__(self, in_channels, out_channels):
+        """SDUNet model.
+        Uses stacked dilated convolutions instead of vanilla double convolutional blocks.
+        Parameters
+        ----------
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the model.
+        """
         super().__init__()
 
         self.unet = UNet(DilatedConv, in_channels, out_channels)

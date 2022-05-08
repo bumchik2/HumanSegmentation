@@ -3,15 +3,15 @@ import numpy as np
 from PIL import Image
 
 
-def read_image(image_path: str) -> np.ndarray:
+def read_image(image_path):
     """Returns a digital rgb representation of the image by path.
     Parameters
     ----------
-    image_path
+    image_path : str
         Path to image.
     Returns
     -------
-    np.ndarray
+    np.ndarray, 3d
         3 x height x width rgb image.
     """
     image = cv2.imread(image_path)
@@ -19,15 +19,15 @@ def read_image(image_path: str) -> np.ndarray:
     return image
 
 
-def read_mask(mask_path: str) -> np.ndarray:
+def read_mask(mask_path):
     """Returns a digital representation of mask by path.
     Parameters
     ----------
-    mask_path
+    mask_path : str
         Path to mask.
     Returns
     -------
-    np.ndarray
+    np.ndarray, 2d
         Height x width mask.
     """
     mask = np.array(Image.open(mask_path))

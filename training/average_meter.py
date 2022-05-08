@@ -20,9 +20,9 @@ class AverageMeter:
         """Predicts a segmentation mask for a specific image
         Parameters
         ----------
-        val
+        val : float
             Received value.
-        n
+        n : int
             Number of times the value has been received.
         """
         self.val = val
