@@ -17,8 +17,9 @@ class SegmentationDataset(Dataset):
         transform
             transform applied to image (if mode is test) or image and
         mode : str
-            'train', 'val' or 'test'. If set to 'train' or 'val', contains images and masks.
-            If set to 'test', will only contain images.
+            'train', 'val' or 'test'. If set to 'train' or 'val',
+            the dataset will contain images and masks.
+            If set to 'test', the dataset will only contain images.
         max_size : int
             int or None, optional (default=None)
         """
