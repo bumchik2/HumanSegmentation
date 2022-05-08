@@ -13,7 +13,7 @@ class HRFusion(nn.Module):
     """Fusion block used in HRNet.
     """
     def __init__(self, in_channels, out_channels_each, in_downsampling_factors, out_downsampling_factors):
-        """Fusion block used in HRNet.
+        """Initializes fusion block used in HRNet.
         Parameters
         ----------
         in_channels : int
@@ -76,7 +76,7 @@ class HRNet(nn.Module):
     """HRNet with 5 fusion blocks.
     """
     def __init__(self, in_channels, out_channels):
-        """HRNet with 5 fusion blocks.
+        """Initializes HRNet with 5 fusion blocks.
         Parameters
         ----------
         in_channels : int

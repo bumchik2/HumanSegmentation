@@ -6,12 +6,11 @@ from torch import nn
 
 
 class DoubleConvBlock(nn.Module):
-    """Vanilla UNet double convolutional block.
+    """Double convolutional block used in Vanilla UNet.
     (conv 3x3 + batchnorm + relu) x 2
     """
     def __init__(self, in_channels, out_channels):
-        """Vanilla UNet double convolutional block.
-        (conv 3x3 + batchnorm + relu) x 2
+        """Initializes Vanilla UNet double convolutional block.
         Parameters
         ----------
         in_channels : int
@@ -35,10 +34,10 @@ class DoubleConvBlock(nn.Module):
 
 
 class VanillaUNet(nn.Module):
-    """VanillaUNet model.
+    """Vanilla UNet model.
     """
     def __init__(self, in_channels, out_channels):
-        """VanillaUNet model.
+        """Initializes Vanilla UNet model.
         Parameters
         ----------
         in_channels : int

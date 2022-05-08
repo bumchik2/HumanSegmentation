@@ -9,6 +9,14 @@ class Conv3x3(nn.Module):
     """Convolution with 3x3 kernel + batchnorm + relu. Image sizes remain unchanged.
     """
     def __init__(self, in_channels, out_channels):
+        """Initializes Conv3x3.
+        Parameters
+        ----------
+        in_channels : int
+            Number of channels in the input image.
+        out_channels : int
+            Number of channels produced by the convolution.
+        """
         super().__init__()
 
         self.conv = nn.Sequential(
@@ -25,7 +33,7 @@ class ConvSequence(nn.Module):
     """Conv3x3 + Conv3x3 + Conv3x3.
     """
     def __init__(self, in_channels, out_channels):
-        """Initialize ConvSequence.
+        """Initializes ConvSequence.
         Parameters
         ----------
         in_channels : int
@@ -49,7 +57,7 @@ class ConvDownSample(nn.Module):
     """Downsampling convolution with 3x3 kernel + batchnorm + relu.
     """
     def __init__(self, in_channels, out_channels, downsample_factor):
-        """Initialize ConvUpSample.
+        """Initializes ConvUpSample.
         Parameters
         ----------
         in_channels : int
@@ -77,7 +85,7 @@ class ConvUpSample(nn.Module):
     """Upsampling deconvolution with 3x3 kernel + batchnorm + relu.
     """
     def __init__(self, in_channels, out_channels, upsample_factor):
-        """Initialize ConvUpSample.
+        """Initializes ConvUpSample.
         Parameters
         ----------
         in_channels : int

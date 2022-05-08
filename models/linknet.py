@@ -14,8 +14,7 @@ class LinkNetEncoderBlock(nn.Module):
     Does x2 downsampling over the incoming image.
     """
     def __init__(self, m, n):
-        """LinkNet encoder block. Consists of 3 convolutions with 1 residual connection.
-        Does x2 downsampling over the incoming image.
+        """Initializes LinkNet encoder block.
         Parameters
         ----------
         m : int
@@ -52,8 +51,7 @@ class LinkNetDecoderBlock(nn.Module):
     Does x2 upsampling over the incoming image.
     """
     def __init__(self, m, n):
-        """LinkNet decoder block. Convolution + deconvolution + convolution with batchnorm + relu in between.
-        Does x2 upsampling over the incoming image.
+        """Initializes LinkNet decoder block.
         Parameters
         ----------
         m : int
@@ -86,7 +84,7 @@ class LinkNet(nn.Module):
     """LinkNet with 4 encoder blocks and 4 decoder blocks.
     """
     def __init__(self, in_channels, out_channels):
-        """LinkNet with 4 encoder blocks and 4 decoder blocks.
+        """Initializes LinkNet.
         Parameters
         ----------
         in_channels : int

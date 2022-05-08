@@ -44,8 +44,10 @@ class UNetUp(nn.Module):
 
 
 class UNet(nn.Module):
+    """Common class for UNet architectures.
+    """
     def __init__(self, conv_block_class, in_channels, out_channels):
-        """Common class for UNet architectures
+        """Initializes common class for UNet architectures.
         Parameters
         ----------
         conv_block_class : torch.nn.Module

@@ -7,7 +7,7 @@ class SegmentationDataset(Dataset):
     """Segmentation dataset.
     """
     def __init__(self, data_path, mask_path, transform, mode, max_size=None):
-        """Segmentation dataset.
+        """Initializes Segmentation dataset.
         Parameters
         ----------
         data_path : str

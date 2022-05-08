@@ -38,8 +38,7 @@ class DilatedConvBlock(nn.Module):
     Stacks multiple dilated convolutions.
     """
     def __init__(self, in_channels, out_channels):
-        """SDUNet convolutional block.
-        Stacks multiple dilated convolutions.
+        """Initializes SDUNet convolutional block.
         Parameters
         ----------
         in_channels : int
@@ -72,11 +71,10 @@ class DilatedConvBlock(nn.Module):
 
 class SDUNet(nn.Module):
     """SDUNet model.
-    Uses stacked dilated convolutions instead of vanilla double convolutional blocks.
+    It uses stacked dilated convolutions instead of vanilla double convolutional blocks.
     """
     def __init__(self, in_channels, out_channels):
-        """SDUNet model.
-        Uses stacked dilated convolutions instead of vanilla double convolutional blocks.
+        """Initializes SDUNet model.
         Parameters
         ----------
         in_channels : int
