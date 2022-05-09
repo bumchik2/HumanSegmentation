@@ -16,7 +16,7 @@ class LinearCombinationEnsemble(nn.Module):
             The model that the aggregator wraps.
         weight_logits
             determines the weights with which model predictions will be averaged.
-             weights = softmax(weight_logits)
+            weights = softmax(weight_logits).
         """
         assert (len(models) > 1)
 

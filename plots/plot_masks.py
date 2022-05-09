@@ -8,7 +8,7 @@ from typing import List
 
 
 def plot_masks_comparison(image, real_mask, predicted_mask, border=classification_border):
-    """Visualizes real and predicted mask
+    """Visualizes original image, real mask and predicted mask.
     Parameters
     ----------
     image : np.ndarray, 3d
@@ -17,7 +17,7 @@ def plot_masks_comparison(image, real_mask, predicted_mask, border=classificatio
         Real segmentation mask.
     predicted_mask: np.ndarray, 2d
         Predicted segmentation mask.
-    border: float
+    border : float
         Segmentation mask binarization border.
     """
     plt.figure(figsize=(18, 8))
@@ -54,7 +54,7 @@ def plot_masks_comparisons(model, test_transform, images_paths,
         Real segmentation masks.
     border : float
         Segmentation mask binarization border.
-    device : str
+    device : str, optional (default='cuda')
         Device for computing (cuda or cpu).
     """
     for image_path, mask_path in zip(images_paths, masks_paths):

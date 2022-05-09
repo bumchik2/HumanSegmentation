@@ -11,17 +11,18 @@ class SegmentationDataset(Dataset):
         Parameters
         ----------
         data_path : str
-            Path to folder with images.
+            Path to directory with images.
         mask_path : str
-            Path to folder with masks.
+            Path to directory with masks.
         transform
-            transform applied to image (if mode is test) or image and
+            Transform applied to image (if mode is test) or to image and mask if mode is train or val.
         mode : str
-            'train', 'val' or 'test'. If set to 'train' or 'val',
-            the dataset will contain images and masks.
-            If set to 'test', the dataset will only contain images.
-        max_size : int
-            int or None, optional (default=None)
+            'train', 'val' or 'test'. If set to 'train' or 'val', the dataset will contain
+            images and masks and transform will be applied to both images and masks.
+            If set to 'test', the dataset will only contain images and transform will only be applied to images.
+        max_size : int, optional (default=None)
+            Limits the maximum size of the dataset (the first max_size pictures by name are taken)
+            If set to None, there are no restrictions on the maximum dataset size.
         """
         assert (mode in ('train', 'val', 'test'))
         if mode == 'test':

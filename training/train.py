@@ -96,7 +96,7 @@ def train_one_epoch(model, criterion, optimizer, train_batch_gen,
         Data loader for training.
     border : float
         Segmentation mask binarization border.
-    device : str
+    device : str, optional (default='cuda')
         Device for computing (cuda or cpu).
     Returns
     -------
@@ -159,7 +159,7 @@ def train_model(model, criterion, optimizer, train_batch_gen, val_batch_gen, num
         Pytorch scheduler for the optimizer.
     use_wandb : bool
         Whether or not to use wandb for logging. Set to True by default.
-    device : str
+    device : str, optional (default='cuda')
         Device for computing (cuda or cpu).
     border : float
         Segmentation mask binarization border.

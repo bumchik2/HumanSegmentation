@@ -13,7 +13,7 @@ class ReflectionAggregator(nn.Module):
         Parameters
         ----------
         model : torch.nn.Module
-            The model that the aggregator wraps.
+            The model that the reflection aggregator wraps.
         """
         super().__init__()
         self.model = model

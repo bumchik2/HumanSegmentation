@@ -9,7 +9,7 @@ def binarize_mask(mask, border=0.5):
     Parameters
     ----------
     mask : np.ndarray
-        Segmentation_mask height x width.
+        Segmentation mask height x width or mutiple masks batch_size x height x width.
     border : float
         Border of binarization.
     Returns

@@ -16,7 +16,7 @@ def get_mask_prediction(model, image, transform, device='cuda') -> np.ndarray:
         Original image for segmentation.
     transform
         Transform applied to image before passing to model.
-    device : str
+    device : str, optional (default='cuda')
         Device for computing (cuda or cpu).
     Returns
     -------
