@@ -1,4 +1,4 @@
-from utils.mask_utils import classification_border, binarize_mask
+from utils.mask_utils import binarization_border, binarize_mask
 from training.average_meter import AverageMeter
 from tqdm import tqdm
 from lib.metrics import get_dice
@@ -82,7 +82,7 @@ def plot_learning_curves(history):
 
 
 def train_one_epoch(model, criterion, optimizer, train_batch_gen,
-                    border=classification_border, device='cuda') -> dict:
+                    border=binarization_border, device='cuda') -> dict:
     """Performs one epoch of training segmentation model.
     Parameters
     ----------
@@ -128,7 +128,7 @@ def train_one_epoch(model, criterion, optimizer, train_batch_gen,
 
 
 def train_model(model, criterion, optimizer, train_batch_gen, val_batch_gen, num_epochs, save_prefix, test_transform,
-                images_paths, masks_paths, scheduler, use_wandb=True, device='cuda', border=classification_border):
+                images_paths, masks_paths, scheduler, use_wandb=True, device='cuda', border=binarization_border):
     """Trains model, evaluates metrics and draws learning curves. Saves the best model to save_prefix + '_best.pt'.
     Saves the latest model to save_prefix + '_latest.pt'. If use_wandb is set to True,
     training logs will be sent to wandb (see datasets.wandb_log_metrics).

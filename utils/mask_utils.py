@@ -1,10 +1,10 @@
 import numpy as np
 
 
-classification_border = 0.5
+binarization_border = 0.5
 
 
-def binarize_mask(mask, border=0.5):
+def binarize_mask(mask, border=binarization_border):
     """Binarizes segmentation mask.
     Parameters
     ----------

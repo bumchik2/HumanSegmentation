@@ -1,5 +1,5 @@
 import torch
-from utils.mask_utils import classification_border, binarize_mask
+from utils.mask_utils import binarization_border, binarize_mask
 from lib.metrics import get_dice
 from training.average_meter import AverageMeter
 import numpy as np
@@ -35,7 +35,7 @@ def get_mask_prediction(model, image, transform, device='cuda') -> np.ndarray:
 
 @torch.no_grad()
 def get_metrics(model, criterion, val_batch_gen,
-                border=classification_border, device='cuda') -> dict:
+                border=binarization_border, device='cuda') -> dict:
     """Calculates metrics (loss and dice) of the model.
     Parameters
     ----------

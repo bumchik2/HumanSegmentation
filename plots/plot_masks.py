@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 from utils.utils import read_image, read_mask
-from utils.mask_utils import binarize_mask, classification_border
+from utils.mask_utils import binarize_mask, binarization_border
 from inference.model_inference import get_mask_prediction
 import numpy as np
 import torch
 from typing import List
 
 
-def plot_masks_comparison(image, real_mask, predicted_mask, border=classification_border):
+def plot_masks_comparison(image, real_mask, predicted_mask, border=binarization_border):
     """Visualizes original image, real mask and predicted mask.
     Parameters
     ----------
@@ -39,7 +39,7 @@ def plot_masks_comparison(image, real_mask, predicted_mask, border=classificatio
 
 
 def plot_masks_comparisons(model, test_transform, images_paths,
-                           masks_paths, border=classification_border, device='cuda'):
+                           masks_paths, border=binarization_border, device='cuda'):
     """Predicts masks for given image paths,
     draws original images, real and predicted masks.
     Parameters
