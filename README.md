@@ -36,6 +36,8 @@ https://arxiv.org/pdf/2001.05566.pdf
 
 ### Таблица с данными об обучении моделей:
 
+runs 0-9 обучались на картинках исходного размера 320x240, 10-13 на уменьшенных картинках 192x144. При этом train и val метрики считаются на картинках исходного размера.
+
 | index | run_id | run_name | model_name | pretrained_weights | num_epochs | val_loss | val_dice | train_loss | train_dice |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 0 | 3i4uqxlh | vanilla_unet_1 | VanillaUNet |  | 25 | 0.16999 | 0.94913 | 0.13602 | 0.96174 |
